@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-class User {
+class MyUser {
   final String id;
   final String name;
   final String email;
@@ -14,7 +14,7 @@ class User {
   final int theme;
   final String avatar;
 
-  User({
+  MyUser({
     required this.id,
     required this.name,
     required this.email,
@@ -26,7 +26,7 @@ class User {
     required this.avatar,
   });
 
-  User copyWith({
+  MyUser copyWith({
     String? id,
     String? name,
     String? email,
@@ -37,7 +37,7 @@ class User {
     int? theme,
     String? avatar,
   }) {
-    return User(
+    return MyUser(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -65,6 +65,7 @@ class User {
   }
    Map<String, dynamic> toFirestoreMap() {
     return {
+       
       'name': name,
       'email': email,
       'bio': bio,
@@ -76,8 +77,8 @@ class User {
     };
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory MyUser.fromMap(Map<String, dynamic> map) {
+    return MyUser(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
@@ -89,8 +90,8 @@ class User {
       avatar: map['avatar'] ?? '',
     );
   }
-  factory User.fromFirestoreDoc(DocumentSnapshot map) {
-    return User(
+  factory MyUser.fromFirestoreDoc(DocumentSnapshot map) {
+    return MyUser(
       id: map.id,
       name: map['name'] ?? '',
       email: map['email'] ?? '',
@@ -105,18 +106,18 @@ class User {
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+  factory MyUser.fromJson(String source) => MyUser.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, bio: $bio, age: $age, matches: $matches, requests: $requests, theme: $theme, avatar: $avatar)';
+    return 'MyUser(id: $id, name: $name, email: $email, bio: $bio, age: $age, matches: $matches, requests: $requests, theme: $theme, avatar: $avatar)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is User &&
+    return other is MyUser &&
         other.id == id &&
         other.name == name &&
         other.email == email &&
@@ -142,21 +143,21 @@ class User {
   }
 }
 
-User testUser0 = User(
-    id: "userid",
-    name: "Test User0",
+MyUser testUser0 = MyUser(
+    id: "MyUserid",
+    name: "Test MyUser0",
     email: "email@mail.com",
-    bio: "User Bio",
+    bio: "MyUser Bio",
     age: "32",
     matches: [],
     requests: [],
     theme: 0,
     avatar: "Default");
-User operatedTestUser = User(
+MyUser operatedTestUser = MyUser(
     id: "operatedid",
-    name: "operatedTestUser",
+    name: "operatedTestMyUser",
     email: "email@mail.com",
-    bio: "User Bio",
+    bio: "MyUser Bio",
     age: "32",
     matches: [],
     requests: [],

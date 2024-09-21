@@ -6,12 +6,12 @@ part of 'users_stream_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$usersStreamHash() => r'c49244ab8872d3b91991c60abd924d9eebac0f80';
+String _$usersStreamHash() => r'fddc9015b5f491e9d95cc9eba3219f967f745aed';
 
 /// See also [UsersStream].
 @ProviderFor(UsersStream)
 final usersStreamProvider =
-    AutoDisposeStreamNotifierProvider<UsersStream, List<User>>.internal(
+    AutoDisposeStreamNotifierProvider<UsersStream, List<MyUser>>.internal(
   UsersStream.new,
   name: r'usersStreamProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final usersStreamProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$UsersStream = AutoDisposeStreamNotifier<List<User>>;
+typedef _$UsersStream = AutoDisposeStreamNotifier<List<MyUser>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

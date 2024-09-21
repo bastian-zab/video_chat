@@ -1,11 +1,13 @@
 
 import 'package:stream_video_flutter/stream_video_flutter.dart';
 
+import '../utilis/permissions.dart';
+
 
 
 Future<Call> videoCall() async {
-  //ToDo : Uncomment permissions on Android.
-  //requestPermission();
+  
+    requestPermission();
 
   var call = StreamVideo.instance.makeCall(
     callType: StreamCallType(),

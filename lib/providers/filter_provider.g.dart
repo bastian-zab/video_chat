@@ -6,7 +6,7 @@ part of 'filter_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filterHash() => r'd0c626ff72a0bc042949658d9cb7dcde359786c9';
+String _$filterHash() => r'b20bee99fdbc49462b64c5cb08839d201a68b520';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,11 +29,11 @@ class _SystemHash {
   }
 }
 
-abstract class _$Filter extends BuildlessAutoDisposeNotifier<List<User>> {
-  late final List<User> users;
+abstract class _$Filter extends BuildlessAutoDisposeNotifier<List<MyUser>> {
+  late final List<MyUser> users;
 
-  List<User> build(
-    List<User> users,
+  List<MyUser> build(
+    List<MyUser> users,
   );
 }
 
@@ -42,13 +42,13 @@ abstract class _$Filter extends BuildlessAutoDisposeNotifier<List<User>> {
 const filterProvider = FilterFamily();
 
 /// See also [Filter].
-class FilterFamily extends Family<List<User>> {
+class FilterFamily extends Family<List<MyUser>> {
   /// See also [Filter].
   const FilterFamily();
 
   /// See also [Filter].
   FilterProvider call(
-    List<User> users,
+    List<MyUser> users,
   ) {
     return FilterProvider(
       users,
@@ -81,10 +81,10 @@ class FilterFamily extends Family<List<User>> {
 
 /// See also [Filter].
 class FilterProvider
-    extends AutoDisposeNotifierProviderImpl<Filter, List<User>> {
+    extends AutoDisposeNotifierProviderImpl<Filter, List<MyUser>> {
   /// See also [Filter].
   FilterProvider(
-    List<User> users,
+    List<MyUser> users,
   ) : this._internal(
           () => Filter()..users = users,
           from: filterProvider,
@@ -108,10 +108,10 @@ class FilterProvider
     required this.users,
   }) : super.internal();
 
-  final List<User> users;
+  final List<MyUser> users;
 
   @override
-  List<User> runNotifierBuild(
+  List<MyUser> runNotifierBuild(
     covariant Filter notifier,
   ) {
     return notifier.build(
@@ -136,7 +136,7 @@ class FilterProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<Filter, List<User>> createElement() {
+  AutoDisposeNotifierProviderElement<Filter, List<MyUser>> createElement() {
     return _FilterProviderElement(this);
   }
 
@@ -154,18 +154,18 @@ class FilterProvider
   }
 }
 
-mixin FilterRef on AutoDisposeNotifierProviderRef<List<User>> {
+mixin FilterRef on AutoDisposeNotifierProviderRef<List<MyUser>> {
   /// The parameter `users` of this provider.
-  List<User> get users;
+  List<MyUser> get users;
 }
 
 class _FilterProviderElement
-    extends AutoDisposeNotifierProviderElement<Filter, List<User>>
+    extends AutoDisposeNotifierProviderElement<Filter, List<MyUser>>
     with FilterRef {
   _FilterProviderElement(super.provider);
 
   @override
-  List<User> get users => (origin as FilterProvider).users;
+  List<MyUser> get users => (origin as FilterProvider).users;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

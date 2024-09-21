@@ -7,7 +7,7 @@ import '../../call_page/call_page.dart';
 
 class VideoCalling extends ConsumerWidget {
   const VideoCalling({required this.userBeingOperatedOn, super.key});
- final User userBeingOperatedOn;
+ final MyUser userBeingOperatedOn;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(

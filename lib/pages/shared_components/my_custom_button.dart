@@ -6,7 +6,6 @@ class MyCustomButton extends StatelessWidget {
     super.key,
     required this.onpressed,
     required this.text,
-
   });
 
   final void Function() onpressed;
@@ -16,6 +15,9 @@ class MyCustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
+        minimumSize: const WidgetStatePropertyAll(
+          Size(50, 4),
+        ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -40,7 +42,7 @@ class MyCustomButton extends StatelessWidget {
       onPressed: onpressed,
       child: Text(
         text,
-        style:  TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Theme.of(context).colorScheme.primary,
         ),

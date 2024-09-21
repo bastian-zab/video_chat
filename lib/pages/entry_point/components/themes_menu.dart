@@ -97,11 +97,11 @@ class ThemesMenu extends ConsumerWidget {
                     },
                     icon: const Icon(
                       Icons.circle,
-                      color: Colors.black,
+                      color: Color(0xff8c4a60),
                       size: 40,
                     ),
                   ),
-                  const Text("Black"),
+                  const Text("Red"),
                 ],
               ),
             ],

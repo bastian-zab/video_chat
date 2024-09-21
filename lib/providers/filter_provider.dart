@@ -9,7 +9,7 @@ part 'filter_provider.g.dart';
 @riverpod
 class Filter extends _$Filter {
   @override
-  List<User> build(List<User> users) {
+  List<MyUser> build(List<MyUser> users) {
     final currentUser = ref.read(currentUserProvider);
     final currentCategoryItem = ref.watch(currentCategoryItemProvider);
 

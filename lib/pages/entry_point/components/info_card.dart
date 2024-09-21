@@ -12,7 +12,7 @@ class InfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    User user = ref.watch(currentUserProvider);
+    MyUser user = ref.watch(currentUserProvider);
     return ListTile(
       leading: const CircleAvatar(
         backgroundColor: Colors.white24,

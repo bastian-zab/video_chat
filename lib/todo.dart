@@ -17,3 +17,17 @@
 
 
 */
+
+   /* final ImagePicker picker = ImagePicker();
+
+                    final XFile? image =
+                        await picker.pickImage(source: ImageSource.gallery);
+                    var bytes = await image?.readAsBytes();
+                    print(bytes.toString());
+
+                    if (bytes != null) {
+                      print("Detected Data");
+                    } else {
+                      print("Error detecting data");
+                    }
+*/

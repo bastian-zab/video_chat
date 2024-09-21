@@ -16,10 +16,7 @@ class _EntryPointState extends State<EntryPoint>
     with SingleTickerProviderStateMixin {
   bool isSideBarOpen = false;
 
-
   late SMIBool isMenuOpenInput;
-
-  
 
   late AnimationController _animationController;
   late Animation<double> scalAnimation;
@@ -75,8 +72,9 @@ class _EntryPointState extends State<EntryPoint>
               child: Transform.scale(
                 scale: scalAnimation.value,
                 child: const ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(24),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
                   ),
                   child: HomePage(),
                 ),

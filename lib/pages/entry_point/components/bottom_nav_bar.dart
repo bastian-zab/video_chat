@@ -17,7 +17,7 @@ class BottomNavBar extends ConsumerWidget {
             const EdgeInsets.only(left: 12, top: 12, right: 12, bottom: 12),
         margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.97),
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.99),
           borderRadius: const BorderRadius.all(Radius.circular(24)),
           boxShadow: [
             BoxShadow(

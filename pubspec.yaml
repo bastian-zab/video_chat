@@ -40,7 +40,6 @@ dependencies:
   stream_video_push_notification: ^0.3.9 
   permission_handler: ^11.3.1
   image_picker: 
-  ekyc_id_flutter:
   flutter_riverpod:
   riverpod_annotation:
   responsive_builder:
@@ -49,6 +48,7 @@ dependencies:
   firebase_auth: 
   cloud_firestore: 
   #inapp_flutter_kyc: ^1.1.9
+  
 
 dev_dependencies:
   flutter_test:

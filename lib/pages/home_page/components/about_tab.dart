@@ -4,15 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_chat/pages/shared_components/my_custom_button.dart';
 import 'package:video_chat/pages/shared_components/show_dialog.dart';
 import 'package:video_chat/providers/current_user_provider.dart';
-
+import '../../../services/firebase_auth.dart';
 import '../../../models/user_model.dart';
 
 class AboutTab extends ConsumerWidget {
-  const AboutTab({super.key});
-
+  AboutTab({super.key});
+  final AuthService auth = AuthService();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    User user = ref.watch(currentUserProvider);
+    MyUser user = ref.watch(currentUserProvider);
     const TextStyle style = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
@@ -72,12 +72,14 @@ class AboutTab extends ConsumerWidget {
                           context: context,
                           builder: (context) {
                             return ShowMyDialog(
-                              onPressed: () {},
-                              content: "Delete Your Profile?",
+                              onPressed: () {
+                                auth.signOut();
+                              },
+                              content: "Log Out?",
                             );
                           });
                     },
-                    text: "Delete My Profile")
+                    text: "Log Out")
               ],
             ),
           ),

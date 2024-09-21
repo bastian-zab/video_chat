@@ -16,7 +16,7 @@ class CheckComplete extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "CheckComplete",
+                "Check Complete",
                 style: TextStyle(fontSize: 20, color: Color(0xFF363f93)),
               ),
               const CircleAvatar(
@@ -27,7 +27,7 @@ class CheckComplete extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'LogIn ',
+                    'LogIn Now',
                     style: TextStyle(fontSize: 25, color: Color(0xFF363f93)),
                   ),
                   IconButton(
@@ -38,19 +38,18 @@ class CheckComplete extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
+                      const mySnackBar = SnackBar(
+                        backgroundColor: Color(0xFF363f93),
+                        content: Text('Loading'),
+                        duration: Duration(seconds: 3),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
                       Navigator.push(
                         context,
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) => const EntryPoint(),
                         ),
                       );
-
-                      /*  User createdUser = User(
-                                    username: userNameController.text,
-                                    email: emailController.text);
-                                ref
-                                    .read(userProvider.notifier)
-                                    .setUser(createdUser);*/
                     },
                   ),
                 ],

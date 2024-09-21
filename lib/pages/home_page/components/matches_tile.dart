@@ -12,7 +12,7 @@ class MatchesTile extends ConsumerWidget {
     required this.userToDisplay,
     required this.ontap,
   });
-  final User userToDisplay;
+  final MyUser userToDisplay;
   final void Function() ontap;
 
   @override
@@ -23,16 +23,18 @@ class MatchesTile extends ConsumerWidget {
       ),
       Matching(
         userBeingOperatedOn: userToDisplay,
+        user: userToDisplay,
       ),
       VideoCalling(
         userBeingOperatedOn: userToDisplay,
       ),
       ConfirmingMatches(
         userBeingOperatedOn: userToDisplay,
+        currentUser: userToDisplay,
       ),
     ];
     int selectedCategory = ref.watch(currentCategoryItemProvider);
-    Color primaryColor = Theme.of(context).colorScheme.primary;
+    Color primaryColor = Theme.of(context).colorScheme.primary.withOpacity(0.85);
     return ListTile(
         onTap: ontap,
         shape: const RoundedRectangleBorder(
