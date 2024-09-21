@@ -8,7 +8,7 @@ const Color shadowColorDark = Colors.black;
 
 List<String> homeTitles = [
   "Matches",
-  "Find Matches",
+  "Discover",
   "Call History",
   "Match Requests"
 ];

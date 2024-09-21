@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -105,7 +104,7 @@ class _MlKitState extends State<MlKit> {
     );
   }
 
-  // ignore: unused_element
+  /*
   void _copyTextToClipboard() async {
     if (recognizedText.isNotEmpty) {
       print(recognizedText);
@@ -129,101 +128,7 @@ class _MlKitState extends State<MlKit> {
     }
   }
 
-  final RegExp datePattern = RegExp(
-    r'\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{4}[/-]\d{1,2}[/-]\d{1,2}|\d{1,2} [A-Za-z]{3,9} \d{2,4})\b',
-  );
-  final RegExp datePattern2 = RegExp(
-    r'\b(?:\d{1,2}[./:-]\d{1,2}[./:-]\d{2,4}|\d{4}[./:-]\d{1,2}[./:-]\d{1,2}|\d{1,2} [A-Za-z]{3,9} \d{2,4})\b',
-  );
-
-  DateTime? extractOldestDate(String text) {
-    final matches = datePattern2.allMatches(text);
-    List<DateTime> dates = [];
-
-    for (var match in matches) {
-      String dateStr = match.group(0)!;
-      DateTime? parsedDate;
-
-      // Try parsing various formats
-      try {
-        if (dateStr.contains('/')) {
-          // Attempt to parse MM/DD/YYYY or DD/MM/YYYY
-          parsedDate = DateTime.parse(dateStr.replaceAll('/', '-'));
-        } else if (dateStr.contains('-')) {
-          // Attempt to parse YYYY-MM-DD
-          parsedDate = DateTime.parse(dateStr);
-        } else {
-          // Attempt to parse DD Month YYYY
-          parsedDate = DateFormat('d MMMM yyyy').parse(dateStr);
-        }
-      } catch (e) {
-        // If parsing fails, continue
-      }
-
-      if (parsedDate != null) {
-        dates.add(parsedDate);
-      }
-    }
-
-    // Return the oldest date if available
-    if (dates.isNotEmpty) {
-      return dates.reduce((a, b) => a.isBefore(b) ? a : b);
-    }
-    return null; // Return null if no valid dates found
-  }
-//newwwwwww
-
-  DateTime? extractOldestDate2(String text) {
-    final RegExp datePattern2 = RegExp(
-      r'\b(?:\d{1,2}[./:-]\d{1,2}[./:-]\d{2,4}|\d{4}[./:-]\d{1,2}[./:-]\d{1,2}|\d{1,2} [A-Za-z]{3,9} \d{2,4})\b',
-    );
-
-    final matches = datePattern2.allMatches(text);
-    List<DateTime> dates = [];
-    print(matches.toString());
-    for (var match in matches) {
-      String dateStr = match.group(0)!;
-      DateTime? parsedDate;
-
-      try {
-        if (dateStr.contains(RegExp(r'[./:-]'))) {
-          // Normalize the separators to a consistent format for parsing
-          String normalizedDate = dateStr.replaceAll(RegExp(r'[./:-]'), '-');
-
-          // Parse various formats
-          if (normalizedDate.length == 10) {
-            // MM-DD-YYYY or DD-MM-YYYY
-            List<String> parts = normalizedDate.split('-');
-            if (parts[0].length == 2 && parts[1].length == 2) {
-              // Try to parse as MM-DD-YYYY
-              parsedDate = DateTime.parse(normalizedDate);
-            } else {
-              // Assume it's YYYY-MM-DD
-              parsedDate = DateTime.parse(normalizedDate);
-            }
-          } else {
-            // Handle formats with 4 digits in front (YYYY)
-            parsedDate = DateTime.parse(normalizedDate);
-          }
-        } else {
-          // Handle DD Month YYYY format
-          parsedDate = DateFormat('d MMMM yyyy').parse(dateStr);
-        }
-      } catch (e) {
-        // If parsing fails, continue
-      }
-
-      if (parsedDate != null) {
-        dates.add(parsedDate);
-      }
-    }
-
-    // Return the oldest date if available
-    if (dates.isNotEmpty) {
-      return dates.reduce((a, b) => a.isBefore(b) ? a : b);
-    }
-    return null; // Return null if no valid dates found
-  }
+  */
 
   DateTime? extractOldestDate3(String text) {
     final RegExp datePattern = RegExp(

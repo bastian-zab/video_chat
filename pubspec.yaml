@@ -49,6 +49,8 @@ dependencies:
   cloud_firestore: 
   google_mlkit_text_recognition: ^0.13.1
   intl:
+  zego_uikit_prebuilt_call: ^4.15.12
+  
  
   
 

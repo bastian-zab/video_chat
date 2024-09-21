@@ -23,7 +23,7 @@ List<Menu> sidebarMenus = [
         stateMachineName: "CHAT_Interactivity"),
   ),
   Menu(
-    title: "Search",
+    title: "Discover",
     rive: RiveModel(
         src: "assets/RiveAssets/icons.riv",
         artboard: "SEARCH",
