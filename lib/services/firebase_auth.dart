@@ -12,9 +12,9 @@ class AuthService {
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+       // print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+       // print('Wrong password provided for that user.');
       }
       // Handle other errors
       return null;
@@ -31,9 +31,9 @@ class AuthService {
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+      //  print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+      //  print('The account already exists for that email.');
       }
       // Handle other errors
       return null;

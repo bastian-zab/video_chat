@@ -13,7 +13,7 @@ class LogInPage extends ConsumerWidget {
   });
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
@@ -75,19 +75,6 @@ class LogInPage extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: height * 0.06),
-                      TextFormField(
-                        controller: passwordController,
-                        decoration: const InputDecoration(
-                            labelText: 'Enter Your Password'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please Enter Your Paswword';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
                       SizedBox(height: height * 0.03),
                       TextFormField(
                         controller: emailController,
@@ -101,6 +88,20 @@ class LogInPage extends ConsumerWidget {
                           }
                         },
                       ),
+                      SizedBox(height: height * 0.06),
+                      TextFormField(
+                        controller: passwordController,
+                        decoration: const InputDecoration(
+                            labelText: 'Enter Your Password'),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please Enter Your Paswword';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      
                       SizedBox(height: height * 0.03),
                       SizedBox(height: height * 0.06),
                       Row(
@@ -123,28 +124,36 @@ class LogInPage extends ConsumerWidget {
                                     await auth.signInWithEmailAndPassword(
                                         emailController.text,
                                         passwordController.text);
-                                const mySnackBar = SnackBar(
-                                  backgroundColor: Color(0xFF363f93),
-                                  content: Text('Verifying...'),
-                                  duration: Duration(seconds: 3),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(mySnackBar);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        const EntryPoint(),
-                                  ),
-                                );
-                                print(userCredential?.user.toString());
+                                if (userCredential != null) {
+                                  const mySnackBar = SnackBar(
+                                    backgroundColor: Color(0xFF363f93),
+                                    content: Text('Verifying...'),
+                                    duration: Duration(seconds: 3),
+                                  );
+                                    /*ref
+                                    .read(removeAsyncProvider.notifier)
+                                    .setUser();*/
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(mySnackBar);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          const EntryPoint(),
+                                    ),
+                                  );
+                                  print(userCredential.user.toString());
+                                } else {
+                                   const mySnackBar = SnackBar(
+                                    backgroundColor: Color.fromRGBO(54, 63, 147, 1),
+                                    content: Text('Details Not Found'),
+                                    duration: Duration(seconds: 3),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(mySnackBar);
+                                }
 
-                                /*  User createdUser = User(
-                                    username: userNameController.text,
-                                    email: emailController.text);
-                                ref
-                                    .read(userProvider.notifier)
-                                    .setUser(createdUser);*/
+                          
                               }
                             },
                           ),

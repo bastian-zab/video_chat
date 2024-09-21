@@ -20,13 +20,13 @@ class MyCustomButton extends StatelessWidget {
         ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
           ),
         ),
         padding: WidgetStatePropertyAll(
           EdgeInsets.only(
-              left: kPadding / 2,
-              right: kPadding / 2,
+              left: kPadding ,
+              right: kPadding ,
               bottom: getValueForScreenType(
                   context: context,
                   mobile: kPadding,

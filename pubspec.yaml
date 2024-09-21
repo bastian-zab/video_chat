@@ -47,7 +47,9 @@ dependencies:
   firebase_core: 
   firebase_auth: 
   cloud_firestore: 
-  #inapp_flutter_kyc: ^1.1.9
+  google_mlkit_text_recognition: ^0.13.1
+  intl:
+ 
   
 
 dev_dependencies:

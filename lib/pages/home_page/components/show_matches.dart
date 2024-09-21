@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_chat/providers/current_user_provider.dart';
-
+import 'package:video_chat/pages/shared_components/empty_page.dart';
+import '../../../ml_kit.dart';
+import '../../../providers/remove_async.dart';
 
 import '../../../models/user_model.dart';
 import '../../../providers/current_category_item_provider.dart';
@@ -18,22 +19,29 @@ class ShowMatches extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     int selectedCategory = ref.watch(currentCategoryItemProvider);
     AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);
-    MyUser currentUser = ref.watch(currentUserProvider);
+    MyUser currentUser = ref.watch(removeAsyncProvider);
+    final currentCategoryItem = ref.watch(currentCategoryItemProvider);
 
     return usersStream.when(data: (data) {
-      print(data.toString());
-      /*List<Application> checkIfSearchIsOn() {
-        if (searchQuery.isEmpty) {
+      List<MyUser> filterUsers(List<MyUser> data) {
+        if (currentCategoryItem == 0) {
+          var matchesIDs = currentUser.matches;
+          var matches = matchesIDs.map((x) {
+            return data.firstWhere((y) => y.id == x);
+          }).toList();
+          return matches;
+        } else if (currentCategoryItem == 1) {
           return data;
         } else {
-          return data
-              .where((app) =>
-                  app.title.toLowerCase().contains(searchQuery.toLowerCase()))
-              .toList();
+          var requestsIDs = currentUser.requests;
+          var requests = requestsIDs.map((x) {
+            return data.firstWhere((y) => y.id == x);
+          }).toList();
+          return requests;
         }
-      }*/
+      }
 
-      // List<User> usersToDisplay = checkIfSearchIsOn();
+      List<MyUser> usersToDisplay = filterUsers(data);
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,24 +57,31 @@ class ShowMatches extends ConsumerWidget {
                     .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
               ),
             ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: data.length,
-              padding: const EdgeInsets.only(bottom: 30),
-              itemBuilder: (context, index) => Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
-                child: MatchesTile(
-                  userToDisplay: data[index],
-                  ontap: () {
-                    print(currentUser.toString());
-                    var error = ref.read(currentUserProvider);
-                    print(error.toString());
-                  },
-                ),
-              ),
-            ),
+            usersToDisplay.isEmpty
+                ? const EmptyPage()
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: usersToDisplay.length,
+                    padding: const EdgeInsets.only(bottom: 30),
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14.0, vertical: 8.0),
+                      child: MatchesTile(
+                        userToDisplay: usersToDisplay[index],
+                        ontap: () {
+                      
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => const MlKit(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
           ],
         ),
       );

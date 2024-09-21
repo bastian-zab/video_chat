@@ -2,11 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
+import 'package:video_chat/pages/auth_page/login_page.dart';
+import 'package:video_chat/providers/remove_async.dart';
+import 'package:video_chat/services/user_from_id.dart';
 import 'package:video_chat/themes/blue.dart';
+import 'models/user_model.dart';
 import 'pages/auth_page/registration_page.dart';
 import 'pages/entry_point/entry_point.dart';
+import 'providers/users_stream_provider.dart';
 import 'services/firebase_auth.dart';
-
 
 import 'firebase_options.dart';
 import 'providers/color_pallete_provider.dart';
@@ -14,7 +18,6 @@ import 'themes/black.dart';
 import 'themes/brown.dart';
 import 'themes/green.dart';
 import 'themes/text_theme.dart';
-
 
 //import 'pages/verification_page/verification_page.dart';
 
@@ -26,8 +29,7 @@ void main() async {
   // ignore: unused_local_variable
   final client = StreamVideo(
     'mmhfdzb5evj2',
-    user:
-        User.regular(userId: 'Savage_Opress', name: ''),
+    user: User.regular(userId: 'Savage_Opress', name: ''),
     userToken:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1NhdmFnZV9PcHJlc3MiLCJ1c2VyX2lkIjoiU2F2YWdlX09wcmVzcyIsInZhbGlkaXR5X2luX3NlY29uZHMiOjYwNDgwMCwiaWF0IjoxNzI2NDc0MjgzLCJleHAiOjE3MjcwNzkwODN9.XgfTnp3JSiTXdE8HWd2XBAyf9FTJFS1xDFX2dJ-mJLc',
   );
@@ -54,7 +56,7 @@ class MyApp extends ConsumerWidget {
     int pallete = ref.watch(colorPalleteProvider);
     var theme = themes[pallete];
     var loggedInUser = AuthService().authStateChanges;
-    //var user = ref.watch(currentUserProvider);
+    AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);
 
     return MaterialApp(
       theme: brightness == Brightness.light ? theme.light() : theme.light(),
@@ -64,7 +66,28 @@ class MyApp extends ConsumerWidget {
           stream: loggedInUser,
           builder: (context, snapshot) {
             if (snapshot.data != null) {
-              return const EntryPoint();
+              var uid = snapshot.data?.uid;
+              if (uid != null) {
+                return usersStream.when(
+                    data: (data) {
+                      var currentUser = userFromID(data, uid);
+                      ref
+                          .read(removeAsyncProvider.notifier)
+                          .setUser(currentUser);
+                      return const EntryPoint();
+                    },
+                    error: (error, stack) => Center(
+                        child: Text("Error: '${error.toString()}' occured.")),
+                    loading: () {
+                      return Center(
+                          child: CircularProgressIndicator(
+                        //strokeWidth: 8.0,
+                        color: Theme.of(context).primaryColor,
+                      ));
+                    });
+              } else {
+                return LogInPage();
+              }
             } else {
               return RegistrationPage();
             }

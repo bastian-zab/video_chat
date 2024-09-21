@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_chat/pages/auth_page/registration_page.dart';
 import 'package:video_chat/pages/shared_components/my_custom_button.dart';
 import 'package:video_chat/pages/shared_components/show_dialog.dart';
-import 'package:video_chat/providers/current_user_provider.dart';
+import 'package:video_chat/providers/remove_async.dart';
 import '../../../services/firebase_auth.dart';
 import '../../../models/user_model.dart';
 
@@ -12,11 +13,8 @@ class AboutTab extends ConsumerWidget {
   final AuthService auth = AuthService();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    MyUser user = ref.watch(currentUserProvider);
-    const TextStyle style = TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.bold,
-    );
+    MyUser user = ref.watch(removeAsyncProvider);
+    
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -45,7 +43,7 @@ class AboutTab extends ConsumerWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                Text(
+                /*Text(
                   user.name,
                   style: style,
                 ),
@@ -62,7 +60,7 @@ class AboutTab extends ConsumerWidget {
                 Text(
                   user.email,
                   style: style,
-                ),
+                ),*/
                 const SizedBox(
                   height: 50,
                 ),
@@ -73,13 +71,20 @@ class AboutTab extends ConsumerWidget {
                           builder: (context) {
                             return ShowMyDialog(
                               onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        RegistrationPage()
+                                  ),
+                                );
                                 auth.signOut();
                               },
                               content: "Log Out?",
                             );
                           });
                     },
-                    text: "Log Out")
+                    text: "Log Out Now")
               ],
             ),
           ),

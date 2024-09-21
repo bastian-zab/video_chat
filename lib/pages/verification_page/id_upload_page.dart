@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_chat/ml_kit.dart';
 import 'package:video_chat/pages/shared_components/my_custom_button.dart';
-import 'package:video_chat/pages/verification_page/check_complete.dart';
-//import 'package:inapp_flutter_kyc/inapp_flutter_kyc.dart';
-
 class IDUploadPage extends ConsumerWidget {
   const IDUploadPage({
     super.key,
@@ -14,11 +12,7 @@ class IDUploadPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double height = MediaQuery.of(context).size.height;
-    Map<String, bool> keyWordData = {
-      'Name': false,
-      'Date of Birth': false,
-      'NID No': false
-    };
+  
 
     return Scaffold(
       body: SafeArea(
@@ -79,6 +73,7 @@ class IDUploadPage extends ConsumerWidget {
                       duration: Duration(seconds: 4),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
+                    
 /*
                     ExtractedDataFromId? extractedDataFromId;
                     extractedDataFromId =
@@ -90,7 +85,7 @@ class IDUploadPage extends ConsumerWidget {
                       context,
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) =>
-                            const CheckComplete(),
+                            const MlKit(),
                       ),
                     );
                   },

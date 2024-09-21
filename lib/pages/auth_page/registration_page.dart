@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_chat/pages/auth_page/login_page.dart';
 import 'package:video_chat/pages/verification_page/id_upload_page.dart';
+import 'package:video_chat/providers/remove_async.dart';
 import 'package:video_chat/providers/users_stream_provider.dart';
 
 import '../../models/user_model.dart';
@@ -189,10 +190,9 @@ class RegistrationPage extends ConsumerWidget {
                                   ref
                                       .read(usersStreamProvider.notifier)
                                       .set(newUser);
-                                   //   print("new user id : ${newUser.id}");
-                                  /* ref
-                                    .read(currentUserProvider.notifier)
-                                    .setCurrentUser(newUser);*/
+                                  
+                                  ref
+                                    .read(removeAsyncProvider.notifier).setUser(newUser);
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(mySnackBar);
                                   Navigator.push(
@@ -205,7 +205,7 @@ class RegistrationPage extends ConsumerWidget {
                                 } else {
                                   const mySnackBar = SnackBar(
                                     backgroundColor: Color(0xFF363f93),
-                                    content: Text('Success'),
+                                    content: Text('Email or Password not Valid'),
                                     duration: Duration(seconds: 2),
                                   );
                                   ScaffoldMessenger.of(context)
