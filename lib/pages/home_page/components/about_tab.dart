@@ -4,17 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_chat/pages/auth_page/registration_page.dart';
 import 'package:video_chat/pages/shared_components/my_custom_button.dart';
 import 'package:video_chat/pages/shared_components/show_dialog.dart';
-import 'package:video_chat/providers/remove_async.dart';
 import '../../../services/firebase_auth.dart';
-import '../../../models/user_model.dart';
+
 
 class AboutTab extends ConsumerWidget {
   AboutTab({super.key});
   final AuthService auth = AuthService();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    MyUser user = ref.watch(removeAsyncProvider);
-    
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -28,11 +26,9 @@ class AboutTab extends ConsumerWidget {
                 Center(
                   child: TextButton(
                     onPressed: () {},
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       radius: 48,
-                      child: user.avatar == "Default"
-                          ? const Icon(CupertinoIcons.person)
-                          : const Icon(CupertinoIcons.person),
+                      child: Icon(CupertinoIcons.person),
                     ),
                   ),
                 ),
@@ -71,13 +67,13 @@ class AboutTab extends ConsumerWidget {
                           builder: (context) {
                             return ShowMyDialog(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        RegistrationPage()
-                                  ),
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => RegistrationPage()),
+                                  (route) => false,
                                 );
+
                                 auth.signOut();
                               },
                               content: "Log Out?",

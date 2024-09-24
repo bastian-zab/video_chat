@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_chat/models/user_model.dart';
 import 'package:video_chat/utilis/rive_utilis.dart';
 
 import '../../../models/menu_model.dart';
@@ -9,7 +10,8 @@ import 'side_menu.dart';
 import 'themes_menu.dart';
 
 class SideBar extends ConsumerWidget {
-  const SideBar({super.key});
+  const SideBar({ required this.currentUser, super.key});
+  final MyUser currentUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +34,7 @@ class SideBar extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const InfoCard(),
+               InfoCard(currentUser: currentUser,),
               Padding(
                 padding: const EdgeInsets.only(left: 24, top: 20, bottom: 10),
                 child: Text(

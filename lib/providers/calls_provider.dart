@@ -1,11 +1,12 @@
+/*
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:video_chat/models/user_model.dart';
 
-part 'users_stream_provider.g.dart';
+//part 'users_stream_provider.g.dart';
 
 @riverpod
-class UsersStream extends _$UsersStream {
+class CallsStream extends _$CallsStream {
   CollectionReference<MyUser> get _collection =>
       FirebaseFirestore.instance.collection('Users').withConverter<MyUser>(
             fromFirestore: (ds, _) => MyUser.fromFirestoreDoc(ds),
@@ -26,7 +27,6 @@ class UsersStream extends _$UsersStream {
   //Update will destroy data if already available
   Future<void> set(MyUser user) async {
     await _collection.doc(user.id).set(user);
-  
   }
 
   Future<void> delete(MyUser user) async {
@@ -39,3 +39,4 @@ class UsersStream extends _$UsersStream {
     return myUser;
   }
 }
+*/

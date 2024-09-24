@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../providers/remove_async.dart';
 
 import '../../../models/user_model.dart';
 
 class InfoCard extends ConsumerWidget {
   const InfoCard({
     super.key,
+    required this.currentUser,
   });
-
+  final MyUser currentUser;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    MyUser user = ref.watch(removeAsyncProvider);
     return ListTile(
       leading: const CircleAvatar(
         backgroundColor: Colors.white24,
@@ -22,11 +21,11 @@ class InfoCard extends ConsumerWidget {
         ),
       ),
       title: Text(
-        user.name,
+        currentUser.name,
         style: const TextStyle(color: Colors.white),
       ),
       subtitle: Text(
-        user.bio,
+        currentUser.bio,
         style: const TextStyle(color: Colors.white70),
       ),
     );

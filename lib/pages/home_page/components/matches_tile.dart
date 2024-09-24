@@ -10,9 +10,10 @@ class MatchesTile extends ConsumerWidget {
   const MatchesTile({
     super.key,
     required this.userToDisplay,
+    required this.currentUser,
     required this.ontap,
   });
-  final MyUser userToDisplay;
+  final MyUser userToDisplay, currentUser;
   final void Function() ontap;
 
   @override
@@ -20,17 +21,19 @@ class MatchesTile extends ConsumerWidget {
     List<Widget> trailingButtons = [
       VideoCalling(
         userBeingOperatedOn: userToDisplay,
+        user: currentUser,
       ),
       Matching(
         userBeingOperatedOn: userToDisplay,
-        user: userToDisplay,
+        user: currentUser,
       ),
       VideoCalling(
         userBeingOperatedOn: userToDisplay,
+        user: currentUser,
       ),
       ConfirmingMatches(
         userBeingOperatedOn: userToDisplay,
-        currentUser: userToDisplay,
+        currentUser: currentUser,
       ),
     ];
     int selectedCategory = ref.watch(currentCategoryItemProvider);

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_chat/pages/shared_components/empty_page.dart';
-import '../../../ml_kit.dart';
-import '../../../providers/remove_async.dart';
 
 import '../../../models/user_model.dart';
 import '../../../providers/current_category_item_provider.dart';
@@ -12,36 +10,51 @@ import 'matches_tile.dart';
 
 class ShowMatches extends ConsumerWidget {
   const ShowMatches({
+    required this.currentUser,
+    required this.dataAlt,
     super.key,
   });
+  final MyUser currentUser;
+  final List<MyUser> dataAlt;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+  
     int selectedCategory = ref.watch(currentCategoryItemProvider);
     AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);
-    MyUser currentUser = ref.watch(removeAsyncProvider);
     final currentCategoryItem = ref.watch(currentCategoryItemProvider);
+     print("showing category: ${selectedCategory}");
+    List<MyUser> filterUsers(List<MyUser> data) {
+      if (data.isNotEmpty) {
+        if (currentCategoryItem == 0) {
+          var requestsIDs = currentUser.matches;
+          List<MyUser> filteredUsers =
+              data.where((item) => requestsIDs.contains(item.id)).toList();
+          return filteredUsers;
+        } else if (currentCategoryItem == 3) {
+          var requestsIDs = currentUser.requests;
+          List<MyUser> filteredUsers =
+              data.where((item) => requestsIDs.contains(item.id)).toList();
+          return filteredUsers;
+        } else if (currentCategoryItem == 1) {
+          var duta = data;
+          //duta.removeWhere((test) => test.id == currentUser.id);
+          //duta.removeWhere((test) => currentUser.matches.contains(test.id));
+         // duta.removeWhere((test) => test.requests.contains(currentUser.id));
+          return duta;
+        } else if (currentCategoryItem == 2) {
+          return [];
+        } else {
+          return data;
+        }
+      } else {
+        return [];
+      }
+    }
 
     return usersStream.when(data: (data) {
-      List<MyUser> filterUsers(List<MyUser> data) {
-        if (currentCategoryItem == 0) {
-          var matchesIDs = currentUser.matches;
-          var matches = matchesIDs.map((x) {
-            return data.firstWhere((y) => y.id == x);
-          }).toList();
-          return matches;
-        } else if (currentCategoryItem == 1) {
-          return data;
-        } else {
-          var requestsIDs = currentUser.requests;
-          var requests = requestsIDs.map((x) {
-            return data.firstWhere((y) => y.id == x);
-          }).toList();
-          return requests;
-        }
-      }
-
       List<MyUser> usersToDisplay = filterUsers(data);
+      
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,16 +82,8 @@ class ShowMatches extends ConsumerWidget {
                           horizontal: 14.0, vertical: 8.0),
                       child: MatchesTile(
                         userToDisplay: usersToDisplay[index],
-                        ontap: () {
-                      
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) => const MlKit(),
-                            ),
-                          );
-                        },
+                        currentUser: currentUser,
+                        ontap: () {},
                       ),
                     ),
                   ),

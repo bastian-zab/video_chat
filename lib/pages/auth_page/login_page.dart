@@ -1,10 +1,10 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_chat/main.dart';
 import 'package:video_chat/pages/auth_page/registration_page.dart';
-import 'package:video_chat/pages/entry_point/entry_point.dart';
 import 'package:video_chat/services/firebase_auth.dart';
 
 class LogInPage extends ConsumerWidget {
@@ -16,11 +16,11 @@ class LogInPage extends ConsumerWidget {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final double height = MediaQuery.of(context).size.height;
-    // User username = ref.watch(userProvider);
-    // Color primaryColor = Theme.of(context).colorScheme.primary;
+
     final AuthService auth = AuthService();
     return Scaffold(
       body: SafeArea(
@@ -101,7 +101,6 @@ class LogInPage extends ConsumerWidget {
                           }
                         },
                       ),
-                      
                       SizedBox(height: height * 0.03),
                       SizedBox(height: height * 0.06),
                       Row(
@@ -125,35 +124,32 @@ class LogInPage extends ConsumerWidget {
                                         emailController.text,
                                         passwordController.text);
                                 if (userCredential != null) {
-                                  const mySnackBar = SnackBar(
+                                  /*  const mySnackBar = SnackBar(
                                     backgroundColor: Color(0xFF363f93),
                                     content: Text('Verifying...'),
-                                    duration: Duration(seconds: 3),
+                                    duration: Duration(seconds: 1),
                                   );
-                                    /*ref
-                                    .read(removeAsyncProvider.notifier)
-                                    .setUser();*/
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(mySnackBar);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute<void>(
-                                      builder: (BuildContext context) =>
-                                          const EntryPoint(),
-                                    ),
-                                  );
-                                  print(userCredential.user.toString());
+                                    */
+                                  var uid = userCredential.user?.uid;
+                                  if (uid != null) {
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                          builder: (context) => const MyApp()),
+                                      (route) => false,
+                                    );
+                                  } else {}
                                 } else {
-                                   const mySnackBar = SnackBar(
-                                    backgroundColor: Color.fromRGBO(54, 63, 147, 1),
+                                  const mySnackBar = SnackBar(
+                                    backgroundColor:
+                                        Color.fromRGBO(54, 63, 147, 1),
                                     content: Text('Details Not Found'),
                                     duration: Duration(seconds: 3),
                                   );
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(mySnackBar);
                                 }
-
-                          
                               }
                             },
                           ),

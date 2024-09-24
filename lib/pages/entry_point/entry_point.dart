@@ -2,12 +2,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
+import '../../models/user_model.dart';
 import '../home_page/home_page.dart';
 import 'components/components.dart';
 
 class EntryPoint extends StatefulWidget {
-  const EntryPoint({super.key});
-
+  const EntryPoint({required this.currentUser, required this.usersData, super.key});
+  final MyUser currentUser;
+  final List<MyUser> usersData;
   @override
   State<EntryPoint> createState() => _EntryPointState();
 }
@@ -59,7 +61,7 @@ class _EntryPointState extends State<EntryPoint>
             curve: Curves.fastOutSlowIn,
             left: isSideBarOpen ? 0 : -288,
             top: 0,
-            child: const SideBar(),
+            child:  SideBar(currentUser: widget.currentUser,),
           ),
           Transform(
             alignment: Alignment.center,
@@ -71,12 +73,12 @@ class _EntryPointState extends State<EntryPoint>
               offset: Offset(animation.value * 265, 0),
               child: Transform.scale(
                 scale: scalAnimation.value,
-                child: const ClipRRect(
-                  borderRadius: BorderRadius.only(
+                child:  ClipRRect(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(24),
                     topRight: Radius.circular(24),
                   ),
-                  child: HomePage(),
+                  child: HomePage(currentUser: widget.currentUser, userData: widget.usersData,),
                 ),
               ),
             ),

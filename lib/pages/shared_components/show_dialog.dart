@@ -19,7 +19,7 @@ class ShowMyDialog extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: onPressed,
-                  child: const Text('Confirm'),
+                  child: const Text('OK'),
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:video_chat/main.dart';
 
-import '../entry_point/entry_point.dart';
+
 
 class CheckComplete extends StatelessWidget {
   const CheckComplete({super.key});
@@ -46,7 +47,7 @@ class CheckComplete extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (BuildContext context) => const EntryPoint(),
+                        builder: (BuildContext context) => const MyApp(),
                       ),
                     );
                   },

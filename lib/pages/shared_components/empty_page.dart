@@ -33,7 +33,7 @@ class EmptyPage extends ConsumerWidget {
                     .read(currentCategoryItemProvider.notifier)
                     .setCurrentCategory(1);
               },
-              text: "Match New People",
+              text: "Discover New Matches",
             )
           ],
         ),

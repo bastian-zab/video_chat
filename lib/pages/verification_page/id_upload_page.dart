@@ -67,13 +67,7 @@ class IDUploadPage extends ConsumerWidget {
                 child: MyCustomButton(
                   text: "Pick An Image",
                   onpressed: () async {
-                    const mySnackBar = SnackBar(
-                      backgroundColor: Color(0xFF363f93),
-                      content: Text('Verifying...'),
-                      duration: Duration(seconds: 4),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
-                    
+                   
 /*
                     ExtractedDataFromId? extractedDataFromId;
                     extractedDataFromId =
