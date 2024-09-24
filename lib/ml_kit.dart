@@ -31,7 +31,7 @@ class _MlKitState extends State<MlKit> {
     imagePicker = ImagePicker();
   }
 
-  void _pickImageAndProcess({required ImageSource source}) async {
+  void pickImageAndProcess({required ImageSource source}) async {
     final pickedImage = await imagePicker.pickImage(source: source);
 
     if (pickedImage == null) {
@@ -72,7 +72,7 @@ class _MlKitState extends State<MlKit> {
     }
   }
 
-  void _chooseImageSourceModal() {
+  void chooseImageSourceModal() {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -86,7 +86,7 @@ class _MlKitState extends State<MlKit> {
                 title: const Text('Choose from gallery'),
                 onTap: () {
                   Navigator.pop(context);
-                  _pickImageAndProcess(source: ImageSource.gallery);
+                  pickImageAndProcess(source: ImageSource.gallery);
                 },
               ),
               ListTile(
@@ -94,7 +94,7 @@ class _MlKitState extends State<MlKit> {
                 title: const Text('Take a picture'),
                 onTap: () {
                   Navigator.pop(context);
-                  _pickImageAndProcess(source: ImageSource.camera);
+                  pickImageAndProcess(source: ImageSource.camera);
                 },
               ),
             ],
@@ -196,7 +196,7 @@ class _MlKitState extends State<MlKit> {
                 child: ImagePreview(imagePath: pickedImagePath),
               ),
               ElevatedButton(
-                onPressed: isRecognizing ? null : _chooseImageSourceModal,
+                onPressed: isRecognizing ? null : chooseImageSourceModal,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

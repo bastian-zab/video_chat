@@ -23,7 +23,7 @@ class ShowMatches extends ConsumerWidget {
     int selectedCategory = ref.watch(currentCategoryItemProvider);
     AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);
     final currentCategoryItem = ref.watch(currentCategoryItemProvider);
-     print("showing category: ${selectedCategory}");
+     
     List<MyUser> filterUsers(List<MyUser> data) {
       if (data.isNotEmpty) {
         if (currentCategoryItem == 0) {

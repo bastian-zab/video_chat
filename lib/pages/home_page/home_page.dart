@@ -31,7 +31,7 @@ class SelectCategoryToShow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     int selectedCategory = ref.watch(currentCategoryItemProvider);
-    return (selectedCategory == 4) ?  AboutTab() : ShowMatches(currentUser: currentUser,dataAlt: userData,);
+    return (selectedCategory == 4) ?   AboutTab(currentUser: currentUser,) : ShowMatches(currentUser: currentUser,dataAlt: userData,);
     //return Container();
   }
 }
