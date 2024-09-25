@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:video_chat/pages/shared_components/profile_picture.dart';
 import '../../../models/user_model.dart';
 import '../button_actions/button_actions.dart';
 
@@ -44,13 +45,13 @@ class MatchesTile extends ConsumerWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         tileColor: primaryColor,
-        leading: const CircleAvatar(
+        leading: ProfilePicture(currentUser: userToDisplay),/*const CircleAvatar(
           backgroundColor: Colors.white24,
           child: Icon(
             CupertinoIcons.person,
             color: Colors.white,
           ),
-        ),
+        ),*/
         title: Text(
           userToDisplay.name,
           style: const TextStyle(color: Colors.white),

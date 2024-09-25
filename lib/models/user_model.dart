@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 class MyUser {
   final String id;
   final String name;
-  final String email;
+  final List<String> images;
   final String bio;
   final String age;
   final List<String> matches;
@@ -17,7 +17,7 @@ class MyUser {
   MyUser({
     required this.id,
     required this.name,
-    required this.email,
+    required this.images,
     required this.bio,
     required this.age,
     required this.matches,
@@ -29,7 +29,7 @@ class MyUser {
   MyUser copyWith({
     String? id,
     String? name,
-    String? email,
+    List<String>? images,
     String? bio,
     String? age,
     List<String>? matches,
@@ -40,7 +40,7 @@ class MyUser {
     return MyUser(
       id: id ?? this.id,
       name: name ?? this.name,
-      email: email ?? this.email,
+      images: images ?? this.images,
       bio: bio ?? this.bio,
       age: age ?? this.age,
       matches: matches ?? this.matches,
@@ -54,7 +54,7 @@ class MyUser {
     return {
       'id': id,
       'name': name,
-      'email': email,
+      'images': images,
       'bio': bio,
       'age': age,
       'matches': matches,
@@ -67,7 +67,7 @@ class MyUser {
     return {
        
       'name': name,
-      'email': email,
+      'images': images,
       'bio': bio,
       'age': age,
       'matches': matches,
@@ -81,7 +81,7 @@ class MyUser {
     return MyUser(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
-      email: map['email'] ?? '',
+      images: List<String>.from(map['images']),
       bio: map['bio'] ?? '',
       age: map['age'] ?? '',
       matches: List<String>.from(map['matches']),
@@ -94,7 +94,7 @@ class MyUser {
     return MyUser(
       id: map.id,
       name: map['name'] ?? '',
-      email: map['email'] ?? '',
+      images: List<String>.from(map['images']),
       bio: map['bio'] ?? '',
       age: map['age'] ?? '',
       matches: List<String>.from(map['matches']),
@@ -110,43 +110,43 @@ class MyUser {
 
   @override
   String toString() {
-    return 'MyUser(id: $id, name: $name, email: $email, bio: $bio, age: $age, matches: $matches, requests: $requests, theme: $theme, avatar: $avatar)';
+    return 'MyUser(id: $id, name: $name, images: $images, bio: $bio, age: $age, matches: $matches, requests: $requests, theme: $theme, avatar: $avatar)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is MyUser &&
-        other.id == id &&
-        other.name == name &&
-        other.email == email &&
-        other.bio == bio &&
-        other.age == age &&
-        listEquals(other.matches, matches) &&
-        listEquals(other.requests, requests) &&
-        other.theme == theme &&
-        other.avatar == avatar;
+      other.id == id &&
+      other.name == name &&
+      listEquals(other.images, images) &&
+      other.bio == bio &&
+      other.age == age &&
+      listEquals(other.matches, matches) &&
+      listEquals(other.requests, requests) &&
+      other.theme == theme &&
+      other.avatar == avatar;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        name.hashCode ^
-        email.hashCode ^
-        bio.hashCode ^
-        age.hashCode ^
-        matches.hashCode ^
-        requests.hashCode ^
-        theme.hashCode ^
-        avatar.hashCode;
+      name.hashCode ^
+      images.hashCode ^
+      bio.hashCode ^
+      age.hashCode ^
+      matches.hashCode ^
+      requests.hashCode ^
+      theme.hashCode ^
+      avatar.hashCode;
   }
 }
 
 MyUser testUser0 = MyUser(
     id: "MyUserid",
     name: "Test MyUser0",
-    email: "email@mail.com",
+    images: [],
     bio: "MyUser Bio",
     age: "32",
     matches: [],
@@ -156,7 +156,7 @@ MyUser testUser0 = MyUser(
 MyUser operatedTestUser = MyUser(
     id: "operatedid",
     name: "operatedTestMyUser",
-    email: "email@mail.com",
+    images: [],
     bio: "MyUser Bio",
     age: "32",
     matches: [],

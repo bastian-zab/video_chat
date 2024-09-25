@@ -58,6 +58,7 @@ class MyApp extends ConsumerWidget {
     int pallete = ref.watch(colorPalleteProvider);
     var theme = themes[pallete];
 
+
     return MaterialApp(
       theme: brightness == Brightness.light ? theme.light() : theme.light(),
       debugShowCheckedModeBanner: false,

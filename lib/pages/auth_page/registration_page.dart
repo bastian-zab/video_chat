@@ -178,7 +178,7 @@ class RegistrationPage extends ConsumerWidget {
                                   MyUser newUser = MyUser(
                                       id: userId ?? "",
                                       name: userNameController.text,
-                                      email: emailController.text,
+                                      images: [],
                                       bio: bioController.text,
                                       age: ageController.text,
                                       matches: [],
