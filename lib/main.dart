@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stream_video_flutter/stream_video_flutter.dart';
+import 'package:video_chat/themes/purple.dart';
 import 'pages/auth_page/login_page.dart';
 import 'services/user_from_id.dart';
 import 'themes/blue.dart';
@@ -13,8 +14,8 @@ import 'services/firebase_auth.dart';
 
 import 'firebase_options.dart';
 import 'providers/color_pallete_provider.dart';
-import 'themes/black.dart';
 import 'themes/brown.dart';
+import 'themes/cherry.dart';
 import 'themes/green.dart';
 import 'themes/text_theme.dart';
 
@@ -50,7 +51,8 @@ class MyApp extends ConsumerWidget {
       BlueMaterialTheme(textTheme),
       GreenMaterialTheme(textTheme),
       BrownMaterialTheme(textTheme),
-      RedMaterialTheme(textTheme),
+      CherryTheme(textTheme),
+      PurpleTheme(textTheme),
     ];
     var loggedInUser = AuthService().authStateChanges;
     AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);

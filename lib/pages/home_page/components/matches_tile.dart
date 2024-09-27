@@ -45,7 +45,7 @@ class MatchesTile extends ConsumerWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         tileColor: primaryColor,
-        leading: ProfilePicture(currentUser: userToDisplay),/*const CircleAvatar(
+        leading: ProfilePicture(currentUser: userToDisplay, radius: 24,),/*const CircleAvatar(
           backgroundColor: Colors.white24,
           child: Icon(
             CupertinoIcons.person,

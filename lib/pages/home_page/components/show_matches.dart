@@ -7,6 +7,7 @@ import '../../../providers/current_category_item_provider.dart';
 import '../../../providers/users_stream_provider.dart';
 import '../../../utilis/utilis.dart';
 import 'matches_tile.dart';
+import 'slide_show.dart';
 
 class ShowMatches extends ConsumerWidget {
   const ShowMatches({
@@ -16,14 +17,13 @@ class ShowMatches extends ConsumerWidget {
   });
   final MyUser currentUser;
   final List<MyUser> dataAlt;
-
+  //final var materialBanner = MaterialBanner(content: content, actions: actions) 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-  
     int selectedCategory = ref.watch(currentCategoryItemProvider);
     AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);
     final currentCategoryItem = ref.watch(currentCategoryItemProvider);
-     
+
     List<MyUser> filterUsers(List<MyUser> data) {
       if (data.isNotEmpty) {
         if (currentCategoryItem == 0) {
@@ -40,7 +40,7 @@ class ShowMatches extends ConsumerWidget {
           var duta = data;
           //duta.removeWhere((test) => test.id == currentUser.id);
           //duta.removeWhere((test) => currentUser.matches.contains(test.id));
-         // duta.removeWhere((test) => test.requests.contains(currentUser.id));
+          // duta.removeWhere((test) => test.requests.contains(currentUser.id));
           return duta;
         } else if (currentCategoryItem == 2) {
           return [];
@@ -54,7 +54,7 @@ class ShowMatches extends ConsumerWidget {
 
     return usersStream.when(data: (data) {
       List<MyUser> usersToDisplay = filterUsers(data);
-      
+
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +83,10 @@ class ShowMatches extends ConsumerWidget {
                       child: MatchesTile(
                         userToDisplay: usersToDisplay[index],
                         currentUser: currentUser,
-                        ontap: () {},
+                        ontap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>CarouselWithIndicator(userToDisplay: usersToDisplay[index],)));
+                        },
                       ),
                     ),
                   ),

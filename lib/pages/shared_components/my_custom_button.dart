@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+
 
 class MyCustomButton extends StatelessWidget {
   const MyCustomButton({
@@ -27,16 +27,8 @@ class MyCustomButton extends StatelessWidget {
           EdgeInsets.only(
               left: kPadding ,
               right: kPadding ,
-              bottom: getValueForScreenType(
-                  context: context,
-                  mobile: kPadding,
-                  desktop: kPadding,
-                  tablet: kPadding),
-              top: getValueForScreenType(
-                  context: context,
-                  mobile: kPadding,
-                  desktop: kPadding,
-                  tablet: kPadding)),
+              bottom: kPadding/2,
+              top:kPadding/2),
         ),
       ),
       onPressed: onpressed,

@@ -10,6 +10,7 @@ import 'package:video_chat/pages/shared_components/my_custom_button.dart';
 import 'package:video_chat/pages/shared_components/profile_picture.dart';
 import 'package:video_chat/pages/shared_components/show_dialog.dart';
 import 'package:video_chat/providers/users_stream_provider.dart';
+import 'package:video_chat/pages/home_page/components/show_image.dart';
 import '../../../services/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -89,7 +90,6 @@ class _AboutTabState extends ConsumerState<AboutTab> {
           print('Error occurred while uploading: $e');
         }
       }
-      
     }
 
     void chooseImageSourceModal() {
@@ -124,7 +124,6 @@ class _AboutTabState extends ConsumerState<AboutTab> {
       );
     }
 
-    print(widget.currentUser.images.length);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -152,56 +151,69 @@ class _AboutTabState extends ConsumerState<AboutTab> {
                               currentUser: widget.currentUser, radius: 34)),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 const Text("Click avatar to change image"),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 SizedBox(
-                  height: 200,
+                  height: 330,
                   child: Column(
                     children: [
-                      /*GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                        ),
-                        itemCount: widget.currentUser.images.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            width: 40,
-                            height: 30,
-                            color: Colors.red,
-                          );
-                        },
-                      ),*/
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            isPictures = true;
-                            if (isRecognizing) {
-                              null;
-                            } else {
-                              chooseImageSourceModal();
-                            }
-                          });
-                        },
-                        child: const Column(
-                          children: [
-                            Icon(
-                              Icons.add,
-                              size: 24,
+                      GridView.count(
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        children: [
+                          if (widget.currentUser.images.length <= 3) ...[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 18.0),
+                              child: TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isPictures = true;
+                                    if (isRecognizing) {
+                                      null;
+                                    } else {
+                                      chooseImageSourceModal();
+                                    }
+                                  });
+                                },
+                                child: const Column(
+                                  children: [
+                                    Icon(
+                                      Icons.add,
+                                      size: 24,
+                                    ),
+                                    Text("Add Photos"),
+                                  ],
+                                ),
+                              ),
                             ),
-                            Text("Add Photos"),
                           ],
-                        ),
+                          ...List.generate(widget.currentUser.images.length,
+                              (index) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              width: 150,
+                              height: 160,
+                              margin: const EdgeInsets.all(4),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(22),
+                                  child: ShowImage(
+                                      imageUrl:
+                                          widget.currentUser.images[index])),
+                            );
+                          }),
+                        ],
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 MyCustomButton(
                     onpressed: () {

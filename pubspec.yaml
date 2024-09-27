@@ -42,7 +42,6 @@ dependencies:
   image_picker: 
   flutter_riverpod:
   riverpod_annotation:
-  responsive_builder:
   rive: 
   firebase_core: 
   firebase_auth: 
@@ -50,6 +49,7 @@ dependencies:
   firebase_storage:
   google_mlkit_text_recognition: ^0.13.1
   intl:
+  carousel_slider:
   
   
   

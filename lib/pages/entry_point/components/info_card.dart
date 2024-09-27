@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_chat/pages/shared_components/profile_picture.dart';
@@ -14,13 +13,7 @@ class InfoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
-      leading: ProfilePicture(currentUser: currentUser),/*const CircleAvatar(
-        backgroundColor: Colors.white24,
-        child: Icon(
-          CupertinoIcons.person,
-          color: Colors.white,
-        ),
-      ),*/
+      leading: ProfilePicture(currentUser: currentUser),
       title: Text(
         currentUser.name,
         style: const TextStyle(color: Colors.white),

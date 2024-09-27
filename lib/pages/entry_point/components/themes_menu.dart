@@ -47,7 +47,7 @@ class ThemesMenu extends ConsumerWidget {
                     icon: const Icon(
                       Icons.circle,
                       color: Color.fromARGB(255, 35, 84, 148),
-                      size: 40,
+                      size: 30,
                     ),
                   ),
                   const Text("Default"),
@@ -64,7 +64,7 @@ class ThemesMenu extends ConsumerWidget {
                     icon: const Icon(
                       Icons.circle,
                       color: Colors.green,
-                      size: 40,
+                      size: 30,
                     ),
                   ),
                   const Text("Green"),
@@ -81,7 +81,7 @@ class ThemesMenu extends ConsumerWidget {
                     icon: const Icon(
                       Icons.circle,
                       color: Colors.brown,
-                      size: 40,
+                      size: 30,
                     ),
                   ),
                   const Text("Brown"),
@@ -97,11 +97,28 @@ class ThemesMenu extends ConsumerWidget {
                     },
                     icon: const Icon(
                       Icons.circle,
-                      color: Color(0xff8c4a60),
-                      size: 40,
+                      color: Color(0xff8f4a50),
+                      size: 30,
                     ),
                   ),
-                  const Text("Red"),
+                  const Text("Cherry"),
+                ],
+              ),
+                Column(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      ref
+                          .read(colorPalleteProvider.notifier)
+                          .setColorPallete(4);
+                    },
+                    icon: const Icon(
+                      Icons.circle,
+                      color: Color(0xff615690),
+                      size: 30,
+                    ),
+                  ),
+                  const Text("Purple"),
                 ],
               ),
             ],
