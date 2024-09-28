@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_chat/models/user_model.dart';
 import 'package:video_chat/pages/auth_page/registration_page.dart';
+import 'package:video_chat/pages/home_page/components/slide_show.dart';
 import 'package:video_chat/pages/shared_components/my_custom_button.dart';
 import 'package:video_chat/pages/shared_components/profile_picture.dart';
 import 'package:video_chat/pages/shared_components/show_dialog.dart';
@@ -124,11 +125,58 @@ class _AboutTabState extends ConsumerState<AboutTab> {
       );
     }
 
+    List<Widget> myImages() {
+      List<Widget> widgets = [];
+      for (var url in widget.currentUser.images) {
+        widgets.add(
+          ClipRRect(
+            borderRadius: BorderRadius.circular(22),
+            child: ShowImage(imageUrl: url),
+          ),
+        );
+      }
+      if (widgets.length <= 3) {
+        widgets.insert(
+          0,
+          Padding(
+            padding: const EdgeInsets.only(top: 88.0),
+            child: Center(
+              child: TextButton(
+                style: const ButtonStyle(
+                  overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                ),
+                onPressed: () {
+                  setState(() {
+                    isPictures = true;
+                    if (isRecognizing) {
+                      null;
+                    } else {
+                      chooseImageSourceModal();
+                    }
+                  });
+                },
+                child: const Column(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      size: 24,
+                    ),
+                    Text("Add Photos"),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+      return widgets;
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.only(top:24.0, bottom: 24.0, left: 0, right: 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,59 +206,14 @@ class _AboutTabState extends ConsumerState<AboutTab> {
                   height: 30,
                 ),
                 SizedBox(
-                  height: 330,
-                  child: Column(
-                    children: [
-                      GridView.count(
-                        shrinkWrap: true,
-                        crossAxisCount: 2,
-                        children: [
-                          if (widget.currentUser.images.length <= 3) ...[
-                            Padding(
-                              padding: const EdgeInsets.only(top: 18.0),
-                              child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isPictures = true;
-                                    if (isRecognizing) {
-                                      null;
-                                    } else {
-                                      chooseImageSourceModal();
-                                    }
-                                  });
-                                },
-                                child: const Column(
-                                  children: [
-                                    Icon(
-                                      Icons.add,
-                                      size: 24,
-                                    ),
-                                    Text("Add Photos"),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                          ...List.generate(widget.currentUser.images.length,
-                              (index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                              width: 150,
-                              height: 160,
-                              margin: const EdgeInsets.all(4),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(22),
-                                  child: ShowImage(
-                                      imageUrl:
-                                          widget.currentUser.images[index])),
-                            );
-                          }),
-                        ],
-                      ),
-                    ],
-                  ),
+                  //  height: 330,
+                  height: 350,
+
+                  child: CarouselWithIndicator(
+                      widgetsToSlideShow: myImages(),
+                      autoplay: false,
+                      showUserInfo: false,
+                      userToDisplay: widget.currentUser),
                 ),
                 const SizedBox(
                   height: 15,

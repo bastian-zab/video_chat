@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../providers/image_from_firebase_provider.dart';
 
-
 class ShowImage extends ConsumerWidget {
   const ShowImage({required this.imageUrl, super.key});
   final String imageUrl;
@@ -13,6 +12,7 @@ class ShowImage extends ConsumerWidget {
     AsyncValue imageBuilder = ref.watch(imageFromFirebaseProvider(imageUrl));
     return imageBuilder.when(
         data: (data) {
+          precacheImage(NetworkImage(data), context);
           return Image.network(
             data,
             fit: BoxFit.cover,

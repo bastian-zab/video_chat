@@ -1,25 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_chat/pages/shared_components/empty_page.dart';
+import 'package:video_chat/pages/home_page/components/show_image.dart';
 
 import '../../../models/user_model.dart';
 import '../../../providers/current_category_item_provider.dart';
 import '../../../providers/users_stream_provider.dart';
 import '../../../utilis/utilis.dart';
+import '../../shared_components/empty_page.dart';
 import 'matches_tile.dart';
 import 'slide_show.dart';
 
 class ShowMatches extends ConsumerWidget {
-  const ShowMatches({
+  ShowMatches({
     required this.currentUser,
     required this.dataAlt,
     super.key,
   });
   final MyUser currentUser;
   final List<MyUser> dataAlt;
-  //final var materialBanner = MaterialBanner(content: content, actions: actions) 
+  final List<String> imageUrls = [
+    'https://images.unsplash.com/photo-1586882829491-b81178aa622e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80',
+    'https://images.unsplash.com/photo-1586871608370-4adee64d1794?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2862&q=80',
+    'https://images.unsplash.com/photo-1586901533048-0e856dff2c0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
+    'https://images.unsplash.com/photo-1586902279476-3244d8d18285?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80',
+    'https://images.unsplash.com/photo-1586943101559-4cdcf86a6f87?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1556&q=80',
+    'https://images.unsplash.com/photo-1586951144438-26d4e072b891?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
+    'https://images.unsplash.com/photo-1586953983027-d7508a64f4bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
+  ];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+   
+    List<Widget> userImages(MyUser userToDiplay) {
+      List<Widget> imagesToDisplay = [];
+      if (userToDiplay.images.isEmpty) {
+        imagesToDisplay.add(const Center(
+            child: Text(
+          "User has No Images",
+          style: TextStyle( fontWeight: FontWeight.bold),
+        )));
+      } else {
+        for (var imagesUrl in userToDiplay.images) {
+          imagesToDisplay.add(
+            ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: ShowImage(imageUrl: imagesUrl)),
+          );
+        }
+      }
+
+      return imagesToDisplay;
+    }
+
     int selectedCategory = ref.watch(currentCategoryItemProvider);
     AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);
     final currentCategoryItem = ref.watch(currentCategoryItemProvider);
@@ -37,10 +69,16 @@ class ShowMatches extends ConsumerWidget {
               data.where((item) => requestsIDs.contains(item.id)).toList();
           return filteredUsers;
         } else if (currentCategoryItem == 1) {
-          var duta = data;
+         var duta = data;
+         /*
+          if (duta.isNotEmpty) {
+            duta.removeWhere((test) => test.id == currentUser.id);
+            duta.removeWhere((test) => currentUser.matches.contains(test.id));
+            duta.removeWhere((test) => test.requests.contains(currentUser.id));
+          }
           //duta.removeWhere((test) => test.id == currentUser.id);
           //duta.removeWhere((test) => currentUser.matches.contains(test.id));
-          // duta.removeWhere((test) => test.requests.contains(currentUser.id));
+          // duta.removeWhere((test) => test.requests.contains(currentUser.id));*/
           return duta;
         } else if (currentCategoryItem == 2) {
           return [];
@@ -84,8 +122,32 @@ class ShowMatches extends ConsumerWidget {
                         userToDisplay: usersToDisplay[index],
                         currentUser: currentUser,
                         ontap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>CarouselWithIndicator(userToDisplay: usersToDisplay[index],)));
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  actionsPadding: const EdgeInsets.only(
+                                      top: 0, bottom: 9, left: 0, right: 0),
+                                  contentPadding: const EdgeInsets.all(0),
+                                  actions: [
+                                    Center(
+                                      child: Center(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Dismiss'),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                  content: CarouselWithIndicator(
+                                    widgetsToSlideShow:
+                                        userImages(usersToDisplay[index]),
+                                    userToDisplay: usersToDisplay[index],
+                                  ),
+                                );
+                              });
                         },
                       ),
                     ),

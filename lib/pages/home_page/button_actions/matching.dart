@@ -18,7 +18,7 @@ class Matching extends ConsumerStatefulWidget {
 class _MatchingState extends ConsumerState<Matching> {
   @override
   Widget build(BuildContext context, ) {
-   //var strem =  ref.watch(usersStreamProvider);
+   
     return IconButton(
       onPressed: () {
          List<String>operatedUserMatches = widget.userBeingOperatedOn.matches;
@@ -56,7 +56,7 @@ class _MatchingState extends ConsumerState<Matching> {
         //The problem
 
         //Not needed anymore
-        //operatedUserRequests.remove(userBeingOperatedOn.id);
+        operatedUserRequests.remove(widget.userBeingOperatedOn.id);
         var operatedUserRequestsWithoutDuplicates =
             operatedUserRequests.toSet().toList();
         var newOperatedUserData = widget.userBeingOperatedOn.copyWith(

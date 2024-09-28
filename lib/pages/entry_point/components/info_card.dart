@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_chat/pages/shared_components/profile_picture.dart';
+import '../../shared_components/profile_picture.dart';
 
 import '../../../models/user_model.dart';
 
