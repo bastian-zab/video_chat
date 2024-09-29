@@ -78,7 +78,7 @@ class _MatchingState extends ConsumerState<Matching> {
             });
        }
       },
-      icon: const Icon(Icons.add_reaction),
+      icon: const Icon(Icons.favorite),
       tooltip: "Request to Match",
     );
   }

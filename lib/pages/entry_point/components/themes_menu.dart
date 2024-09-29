@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:video_chat/providers/color_pallete_provider.dart';
+import 'package:video_chat/models/user_model.dart';
+import 'package:video_chat/providers/users_stream_provider.dart';
 
 class ThemesMenu extends ConsumerWidget {
   const ThemesMenu({
     super.key,
+    required this.currentUser,
   });
+  final MyUser currentUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: Column(
@@ -40,9 +42,8 @@ class ThemesMenu extends ConsumerWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      ref
-                          .read(colorPalleteProvider.notifier)
-                          .setColorPallete(0);
+                      MyUser newUserData = currentUser.copyWith(theme: 0);
+                      ref.read(usersStreamProvider.notifier).set(newUserData);
                     },
                     icon: const Icon(
                       Icons.circle,
@@ -57,9 +58,8 @@ class ThemesMenu extends ConsumerWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      ref
-                          .read(colorPalleteProvider.notifier)
-                          .setColorPallete(1);
+                      MyUser newUserData = currentUser.copyWith(theme: 1);
+                      ref.read(usersStreamProvider.notifier).set(newUserData);
                     },
                     icon: const Icon(
                       Icons.circle,
@@ -74,9 +74,8 @@ class ThemesMenu extends ConsumerWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      ref
-                          .read(colorPalleteProvider.notifier)
-                          .setColorPallete(2);
+                    MyUser newUserData = currentUser.copyWith(theme: 2);
+                      ref.read(usersStreamProvider.notifier).set(newUserData);
                     },
                     icon: const Icon(
                       Icons.circle,
@@ -91,30 +90,28 @@ class ThemesMenu extends ConsumerWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      ref
-                          .read(colorPalleteProvider.notifier)
-                          .setColorPallete(3);
+                      MyUser newUserData = currentUser.copyWith(theme: 3);
+                      ref.read(usersStreamProvider.notifier).set(newUserData);
                     },
                     icon: const Icon(
                       Icons.circle,
-                      color: Color(0xff8f4a50),
+                      color: Colors.red,
                       size: 30,
                     ),
                   ),
                   const Text("Cherry"),
                 ],
               ),
-                Column(
+              Column(
                 children: [
                   IconButton(
                     onPressed: () {
-                      ref
-                          .read(colorPalleteProvider.notifier)
-                          .setColorPallete(4);
+                      MyUser newUserData = currentUser.copyWith(theme: 4);
+                      ref.read(usersStreamProvider.notifier).set(newUserData);
                     },
                     icon: const Icon(
                       Icons.circle,
-                      color: Color(0xff615690),
+                      color: Colors.purple,
                       size: 30,
                     ),
                   ),

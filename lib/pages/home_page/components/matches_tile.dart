@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_chat/pages/shared_components/profile_picture.dart';
+import 'package:video_chat/services/split_names.dart';
 import '../../../models/user_model.dart';
 import '../button_actions/button_actions.dart';
 
@@ -45,7 +46,7 @@ class MatchesTile extends ConsumerWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         tileColor: primaryColor,
-        leading: ProfilePicture(currentUser: userToDisplay, radius: 24,),/*const CircleAvatar(
+        leading: ProfilePicture(url: userToDisplay.avatar, radius: 30,),/*const CircleAvatar(
           backgroundColor: Colors.white24,
           child: Icon(
             CupertinoIcons.person,
@@ -53,7 +54,7 @@ class MatchesTile extends ConsumerWidget {
           ),
         ),*/
         title: Text(
-          userToDisplay.name,
+          splitName(userToDisplay.name),
           style: const TextStyle(color: Colors.white),
         ),
         subtitle: Text(

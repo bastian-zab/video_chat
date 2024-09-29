@@ -20,6 +20,6 @@ class ShowImage extends ConsumerWidget {
         },
         error: (error, stack) =>
             const Center(child: Text("Error loading Image")),
-        loading: () => const Text("Loading"));
+        loading: () => const Center(child: CircularProgressIndicator()));
   }
 }

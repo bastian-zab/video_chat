@@ -6,7 +6,7 @@ part of 'image_from_firebase_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$imageFromFirebaseHash() => r'1fa6f6fcf9c64396a20bff3bb44a37257f569606';
+String _$imageFromFirebaseHash() => r'0b4961cfe7c5b8ea9ee9cd51d940c8dd73938ec5';
 
 /// Copied from Dart SDK
 class _SystemHash {

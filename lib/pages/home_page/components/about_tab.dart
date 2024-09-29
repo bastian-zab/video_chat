@@ -71,18 +71,21 @@ class _AboutTabState extends ConsumerState<AboutTab> {
             isPictures = false;
           });
         } else {
+          String date = DateTime.now().toString();
           final storageRef = FirebaseStorage.instance
               .ref()
-              .child('avatars/${widget.currentUser.id}');
+              .child("avatars/${widget.currentUser.id}/$date");
           await storageRef.putFile(pickedImageFile!);
+
           MyUser newUserData = widget.currentUser
-              .copyWith(avatar: "avatars/${widget.currentUser.id}");
+              .copyWith(avatar: "avatars/${widget.currentUser.id}/$date");
           ref.read(usersStreamProvider.notifier).set(newUserData);
         }
 
         setState(() {
           isRecognizing = false;
         });
+
         if (kDebugMode) {
           print('Upload complete');
         }
@@ -176,7 +179,8 @@ class _AboutTabState extends ConsumerState<AboutTab> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top:24.0, bottom: 24.0, left: 0, right: 0),
+            padding: const EdgeInsets.only(
+                top: 24.0, bottom: 24.0, left: 0, right: 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,7 +200,7 @@ class _AboutTabState extends ConsumerState<AboutTab> {
                               ),
                             )
                           : ProfilePicture(
-                              currentUser: widget.currentUser, radius: 34)),
+                              url: widget.currentUser.avatar, radius: 34)),
                 ),
                 const SizedBox(
                   height: 5,

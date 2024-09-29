@@ -28,8 +28,8 @@ void main() async {
   // You can set `options: StreamVideoOptions(autoConnect: false)` if you want to disable auto-connect.
   // ignore: unused_local_variable
   final client = StreamVideo(
-   // 'mmhfdzb5evj2',
-     'mmhfdzb5evj2',
+    // 'mmhfdzb5evj2',
+    'mmhfdzb5evj2',
     user: User.regular(userId: 'Savage_Opress', name: ''),
     userToken:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL1NhdmFnZV9PcHJlc3MiLCJ1c2VyX2lkIjoiU2F2YWdlX09wcmVzcyIsInZhbGlkaXR5X2luX3NlY29uZHMiOjYwNDgwMCwiaWF0IjoxNzI2NDc0MjgzLCJleHAiOjE3MjcwNzkwODN9.XgfTnp3JSiTXdE8HWd2XBAyf9FTJFS1xDFX2dJ-mJLc',
@@ -43,7 +43,6 @@ void main() async {
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     TextTheme textTheme = createTextTheme(context);
@@ -57,9 +56,9 @@ class MyApp extends ConsumerWidget {
     var loggedInUser = AuthService().authStateChanges;
     AsyncValue<List<MyUser>> usersStream = ref.watch(usersStreamProvider);
     final brightness = View.of(context).platformDispatcher.platformBrightness;
+
     int pallete = ref.watch(colorPalleteProvider);
     var theme = themes[pallete];
-
 
     return MaterialApp(
       theme: brightness == Brightness.light ? theme.light() : theme.light(),
@@ -74,8 +73,14 @@ class MyApp extends ConsumerWidget {
                 return usersStream.when(
                     data: (data) {
                       var currentUser = userFromID(data, uid);
-                     
-                      return  EntryPoint(currentUser: currentUser, usersData: data,);
+                      Future.delayed(const Duration( seconds: 0), () {
+                        ref.read(colorPalleteProvider.notifier).setColorPallete(currentUser.theme);
+                      });
+                   
+                      return EntryPoint(
+                        currentUser: currentUser,
+                        usersData: data,
+                      );
                     },
                     error: (error, stack) => Center(
                         child: Text("Error: '${error.toString()}' occured.")),

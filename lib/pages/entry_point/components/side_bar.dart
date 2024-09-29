@@ -69,7 +69,7 @@ class SideBar extends ConsumerWidget {
                       .copyWith(color: Colors.white70),
                 ),
               ),
-              const ThemesMenu()
+               ThemesMenu(currentUser: currentUser,)
             ],
           ),
         ),

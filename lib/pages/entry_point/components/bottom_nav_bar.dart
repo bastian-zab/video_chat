@@ -4,6 +4,8 @@ import 'package:video_chat/models/menu_model.dart';
 import 'package:video_chat/pages/entry_point/components/components.dart';
 import 'package:video_chat/providers/current_category_item_provider.dart';
 
+import '../../../utilis/rive_utilis.dart';
+
 class BottomNavBar extends ConsumerWidget {
   const BottomNavBar({super.key});
 
@@ -35,9 +37,13 @@ class BottomNavBar extends ConsumerWidget {
               (index) {
                 Menu navBar = bottomNavItems[index];
                 return BtmNavItem(
+                  riveOnInit: (artboard) {
+                      navBar.rive.status = RiveUtils.getRiveInput(artboard,
+                          stateMachineName: navBar.rive.stateMachineName);
+                    },
                   navBar: navBar,
                   press: () {
-                    //RiveUtils.chnageSMIBoolState(navBar.rive.status!);
+                    RiveUtils.chnageSMIBoolState(navBar.rive.status!);
 
                     ref
                         .read(currentCategoryItemProvider.notifier)

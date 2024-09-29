@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/user_model.dart';
 
+import '../../../services/split_names.dart';
 import '../../shared_components/profile_picture.dart';
 
 class CarouselWithIndicator extends StatefulWidget {
@@ -101,11 +102,11 @@ class UserInfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       leading: ProfilePicture(
-        currentUser: currentUser,
+        url: currentUser.avatar,
         radius: 20,
       ),
       title: Text(
-        currentUser.name,
+        splitName(currentUser.name),
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       subtitle: Text(

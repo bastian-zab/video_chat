@@ -9,11 +9,13 @@ class BtmNavItem extends StatelessWidget {
       {super.key,
       required this.navBar,
       required this.press,
-      required this.selectedNav});
+      required this.selectedNav,
+      required this.riveOnInit });
 
   final Menu navBar;
   final VoidCallback press;
   final Menu selectedNav;
+   final ValueChanged<Artboard> riveOnInit;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class BtmNavItem extends StatelessWidget {
               child: RiveAnimation.asset(
                 navBar.rive.src,
                 artboard: navBar.rive.artboard,
-                //onInit: riveOnInit,
+                onInit: riveOnInit,
               ),
             ),
           ),
